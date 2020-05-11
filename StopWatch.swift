@@ -10,8 +10,22 @@ import Foundation
 import SwiftUI
 import Combine
 
-class StopWatch: ObservedObject{
+class StopWatch: ObservableObject{
     @Published var counter: Int = 0
     
     var timer = Timer()
+    
+    func start(){
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true){timer in
+            self.counter += 1
+        }
+    }
+    func stop(){
+        timer.invalidate()
+    }
+    
+    func reset(){
+        counter = 0
+        timer.invalidate()
+    }
 }
